@@ -5,7 +5,7 @@ export const config: WebdriverIO.Config = {
     // ====================
     // WebdriverIO supports running e2e tests as well as unit and component tests.
     runner: 'local',
-    tsConfigPath: './test/tsconfig.json',
+    tsConfigPath: './tsconfig.json',
     
     //
     // ==================
@@ -53,7 +53,11 @@ export const config: WebdriverIO.Config = {
     //
     capabilities: [{
         // capabilities for local browser web tests
-        browserName: 'chrome' // or "firefox", "microsoftedge", "safari"
+        browserName: 'chrome', // or "firefox", "microsoftedge", "safari"
+        // run headless on CI (GitHub Actions sets CI=true)
+        'goog:chromeOptions': {
+            args: process.env.CI ? ['--headless=new', '--no-sandbox', '--disable-dev-shm-usage', '--window-size=1920,1080'] : []
+        }
     }],
 
     //
